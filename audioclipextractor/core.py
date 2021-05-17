@@ -37,7 +37,7 @@ class AudioClipExtractor(object):
     def text_metadata_name(self, value):
         self._textMetadataName = value
 
-    def extract_clips(self, specs_file_path_or_str, output_dir=None, zip_output=False, text_as_title=False):
+    def extract_clips(self, specs_file_path_or_str, output_dir=None, zip_output=False, text_as_title=False, prefix=''):
         """Extract clips according to the specification file or string.
         
         Arguments:
@@ -75,7 +75,8 @@ class AudioClipExtractor(object):
             else:
                 filename_format = 'clip%%0%dd.wav' % len(str(len(clips)))
 
-            filepath = os.path.join(output_dir, slugify_filename(filename_format % (i + 1)))
+            fname = prefix + slugify_filename(filename_format % (i + 1))
+            filepath = os.path.join(output_dir, fname)
 
             clip_data = self._extract_clip_data(clip)
 
